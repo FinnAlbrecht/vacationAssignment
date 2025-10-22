@@ -1,0 +1,25 @@
+.header {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    padding: 0.5em;
+    box-shadow: 0 1px 6px 0 rgb(0 0 0 / 20%);
+    display: flex;
+    background-color: rgb(0, 0, 0);
+    
+    z-index: 99
+}
+
+.header a{
+    color:  rgb(138, 134, 168);
+    font-weight: bold;
+    font-size: 1em;
+    text-decoration: none;
+  
+    
+}
+
+.header a:hover {
+    text-decoration: underline;
+
+}
