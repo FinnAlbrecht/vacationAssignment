@@ -63,5 +63,5 @@ It includes validation, form handling, and a backend connection for data persist
 
 ## 🔗 Related Links
 
-- [Main Repository Overview](../README.md)
+- [Main Repository Overview](https://github.com/FinnAlbrecht/bbc-apprenticeship/tree/main)
 - [GitHub Repository](https://github.com/FinnAlbrecht/vacationAssignment)
