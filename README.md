@@ -1,22 +1,67 @@
-# BBC Apprenticeship Projects
+# Vacation Assignment 🏖️
 
-This repository contains various projects, exercises, and code snippets developed during my vocational training at BBC (Berufsbildungscenter), 2023–2024.
+![GitHub last commit](https://img.shields.io/github/last-commit/FinnAlbrecht/vacationAssignment)
+![GitHub repo size](https://img.shields.io/github/repo-size/FinnAlbrecht/vacationAssignment)
+![GitHub top language](https://img.shields.io/github/languages/top/FinnAlbrecht/vacationAssignment)
+![GitHub language count](https://img.shields.io/github/languages/count/FinnAlbrecht/vacationAssignment)
+![GitHub issues](https://img.shields.io/github/issues/FinnAlbrecht/vacationAssignment)
+![GitHub pull requests](https://img.shields.io/github/issues-pr/FinnAlbrecht/vacationAssignment)
+![GitHub license](https://img.shields.io/github/license/FinnAlbrecht/vacationAssignment)
+![GitHub repo stars](https://img.shields.io/github/stars/FinnAlbrecht/vacationAssignment?style=social)
+![GitHub forks](https://img.shields.io/github/forks/FinnAlbrecht/vacationAssignment?style=social)
+![GitHub watchers](https://img.shields.io/github/watchers/FinnAlbrecht/vacationAssignment?style=social)
+![GitHub deployments](https://img.shields.io/github/deployments/FinnAlbrecht/vacationAssignment/production?label=deployment)
 
-During this time, I gained experience in a wide range of topics, including:
+---
+**Project date:** October 2024  
+**Duration:** 2 weeks  
+**Goal:** Build a small web app for managing vacation requests during the apprenticeship.
 
-- Operating Systems (Windows / Linux)
-- Python
-- JavaScript
-- Java / JavaFX
-- Spring Boot
-- React
-- React Native
-- SQL
-- ...
+---
 
-## Contents
+## 🧰 Tech Stack
 
-- [Python Basics](./01_python_grundlagen) – Simple scripts and exercises
-- [Web Development](./02_webentwicklung) – HTML/CSS exercises
-- [SQL & Databases](./03_sql_datenbanken) – Example queries and schemas
-- [Java Practice](./04_java_übung) – Object-oriented programming with Java
+| Tool | Version | Purpose |
+|------|----------|----------|
+| Node.js | 20.x | Backend runtime |
+| Next.js | 14.x | React-based frontend framework |
+| React | 18.x | UI library |
+| NPM | 10.x | Package management |
+| Git | latest | Version control |
+
+---
+
+## ⚙️ Description
+
+The application allows users to register, log in, and submit vacation requests.  
+It includes validation, form handling, and a backend connection for data persistence.
+
+---
+
+## 📦 Features
+
+- User registration and login  
+- Vacation request form  
+- Responsive frontend using Next.js  
+- Form validation and error handling  
+
+---
+
+## 📸 Screenshots (optional)
+
+*(Add a few screenshots of your app here later)*
+
+---
+
+
+## 💬 Lessons Learned
+- Improved my understanding of React components.
+- Learned how to handle form validation in Next.js.
+- Practiced using Git submodules correctly.
+
+---
+
+## 🔗 Related Links
+
+- [Main Repository Overview](../README.md)
+- [GitHub Repository](https://github.com/FinnAlbrecht/vacationAssignment)
