@@ -4,9 +4,9 @@ import Link from "next/link";
 import { useMode } from "../lib/hooks/modes";
 import { useState } from "react";
 
-import Header from "../components/header";
+import Header from "../components/Header";
 import { useSession } from "../lib/hooks/session";
-import Footer from "../components/Footer";
+import Footer from "../components/footer";
 
 export default function App({ Component, pageProps }) {
   const [isOpen, setIsOpen] = useState(false);
