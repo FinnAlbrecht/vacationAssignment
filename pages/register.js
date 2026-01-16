@@ -1,4 +1,4 @@
-import { checkoutPay, login, register } from "../lib/api/auth";
+import { login, register } from "../lib/api/auth";
 import { useSession } from "../lib/hooks/session";
 import { useRouter } from "next/router";
 import { useState } from "react";
@@ -6,16 +6,24 @@ import styles from "./login.module.css";
 import Link from "next/link";
 
 const defaultModel = {
+  firstname: "",
+  lastname: "",
   email: "",
   password: "",
 };
 
 function validateModel(model) {
   const errors = {
+    firstname: "",
     email: "",
     password: "",
   };
   let isValid = true;
+
+  if (model.firstname.trim().length === 0) {
+    errors.firstname = "Firstname can't be empty";
+    isValid = false;
+  }
 
   if (model.email.trim().length === 0 || !model.email.includes("@")) {
     errors.email = "Email can't be empty and must be valid email";
@@ -63,18 +71,23 @@ export default function RegisterPage() {
     }
 
     try {
-      const resp = await register(model);
-      login(resp);
-      const url = router.query.url;
-      if (url) {
-        router.push(url);
-      } else {
-        router.push("/");
+      await register(model);
+      try {
+        const logged = await login({ email: model.email, password: model.password });
+        signIn(logged);
+        const url = router.query.url;
+        router.push(url ?? "/");
+      } catch (loginError) {
+        setErrors({
+          ...errors,
+          register: loginError.message || "Registration successful, but login failed. Please try logging in manually.",
+        });
+        setIsLoading(false);
       }
-    } catch (e) {
+    } catch (registerError) {
       setErrors({
         ...errors,
-        register: "Login failed",
+        register: registerError.message || "Register failed",
       });
       setIsLoading(false);
     }
@@ -90,11 +103,11 @@ export default function RegisterPage() {
         <fieldset>
           <label>Firstname:</label>
           <input
-            type="Firstname"
-            name="Firstname"
+            type="text"
+            name="firstname"
             onChange={handleChange}
             value={model.firstname}
-            autoComplete="Firstname"
+            autoComplete="given-name"
             required
           />
           {errors.firstname && (
@@ -105,11 +118,11 @@ export default function RegisterPage() {
         <fieldset>
           <label>Lastname:</label>
           <input
-            type="Lastname"
+            type="text"
             name="lastname"
             onChange={handleChange}
             value={model.lastname ?? ""}
-            autoComplete="lastname"
+            autoComplete="family-name"
           />
           {errors.lastname && (
             <div className={styles.error}>{errors.lastname}</div>
@@ -144,9 +157,7 @@ export default function RegisterPage() {
             <div className={styles.error}>{errors.password}</div>
           )}
         </fieldset>
-        <Link href="/login">
-          <button>Login</button>
-        </Link>
+        <Link href="/login">Login</Link>
 
         <fieldset>
           <button disabled={isLoading} type="submit">
