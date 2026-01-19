@@ -1,5 +1,3 @@
-import { getAllPosts } from "../lib/api/posts";
-import { useEffect, useState } from "react";
 import styles from "./index.module.css";
 import Link from "next/link";
 import { useNotification } from "../components/NotificationContainer";
@@ -31,25 +29,9 @@ export default function IndexPage() {
     }, [addNotification]);
 
     return (
-        <div className={styles.todos}>
-            <h1 className={styles.header}>Welcome to your Todolist!</h1>
-            <section className={styles.todoSection}>
-                {posts.map(post => {
-                    return (
-                        <article key={post.id} className={styles.todo}>
-                            <h2 className={styles.postTitle}>
-                                {post.title}
-                            </h2>
-                            <p className={styles.postDescription}>
-                                {post.description.substring(0, 100) + "..."}
-                            </p>
-                            <p className={styles.postTime}>
-                                {post.time} {post.date}
-                            </p>
-                        </article>
-                    );
-                })}
-            </section>
+        <div className={styles.placeholder}>
+            <h1 className={styles.title}>Coming Soon</h1>
+            <p className={styles.subtitle}>Etwas Großartiges ist in Arbeit. Bleib dran!</p>
         </div>
     );
 }
