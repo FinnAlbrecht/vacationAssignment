@@ -84,3 +84,7 @@ aside ul li a {
 aside.isOpen {
   transform: translateX(0);
 }
+
+.user-icon img{
+  width: 4rem;
+}

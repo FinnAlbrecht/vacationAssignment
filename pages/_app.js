@@ -1,5 +1,6 @@
 import "./_app.css";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 import { useMode } from "../lib/hooks/modes";
 import { useState } from "react";
@@ -14,11 +15,14 @@ export default function App({ Component, pageProps }) {
     setIsOpen((prev) => !prev);
   };
   const handleclicklogout = () => {
-    signOut();
-    router.push("/");
+    if (confirm("Möchtest du dich wirklich ausloggen?")) {
+      signOut();
+      setIsOpen(false);
+      router.push("/");
+    }
   };
-
-  const { session, isSignedIn, signOut } = useSession([]);
+  const router = useRouter();
+  const { session, isSignedIn, signOut } = useSession();
   const user = session.user;
   return (
     <div className={"main site"}>
@@ -28,10 +32,9 @@ export default function App({ Component, pageProps }) {
         </h1>
 
         {isSignedIn && (
-          <h2>
-            {" "}
-            <img src="loginicon.png" alt="" />
-          </h2>
+          <div className="user-icon">
+            <img src="loginicon.png" alt="User" />
+          </div>
         )}
         <div className="sidebar-toggle" id="Burger" onClick={toggleSidebar}>
           <img src={isOpen ? "/x-menu.png" : "/menu.jpg"} alt="menu-button" />
