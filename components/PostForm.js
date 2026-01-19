@@ -2,6 +2,7 @@ import { createPost, updatePost } from "../lib/api/posts";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import styles from "./PostForm.module.css";
+import { useNotification } from "./NotificationContainer";
 
 const defaultModel = {
   title: "",
@@ -51,6 +52,7 @@ function validateModel(post) {
 
 export default function PostForm({ postToEdit }) {
   const router = useRouter();
+  const { addNotification } = useNotification();
   const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState(defaultModel);
   const [post, setPost] = useState(defaultModel);
@@ -86,17 +88,18 @@ export default function PostForm({ postToEdit }) {
     if (post.id) {
       try {
         await updatePost(post);
-        alert("Post updated!");
+        addNotification("Post aktualisiert!", "success", 3000);
         router.push(`/posts/${post.id}`);
       } catch (e) {
-        alert("Could not update post");
+        addNotification("Post konnte nicht aktualisiert werden", "error", 4000);
       }
     } else {
       try {
         const newPost = await createPost(post);
-        alert("Post created!");
+        addNotification("Post erstellt!", "success", 3000);
+        router.push("/todos");
       } catch (e) {
-        alert("Could not create post");
+        addNotification("Post konnte nicht erstellt werden", "error", 4000);
       }
     }
     setIsLoading(false);

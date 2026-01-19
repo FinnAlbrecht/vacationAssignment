@@ -5,11 +5,12 @@ export default async function handler(req, res) {
 
   const { email, password } = req.body;
 
+  // Validation
   if (!email || !password) {
-    return res.status(400).json({ message: 'Missing email or password' });
+    return res.status(400).json({ message: 'Email und Passwort erforderlich' });
   }
 
-  // Simple mock: accept any email/password and return a user
+  // Mock implementation - accept any email/password
   const user = {
     id: 1,
     firstname: 'Test',

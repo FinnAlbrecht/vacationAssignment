@@ -5,15 +5,16 @@ export default async function handler(req, res) {
 
   const { firstname, lastname, email, password } = req.body;
 
+  // Validation
   if (!firstname || !email || !password) {
-    return res.status(400).json({ message: 'Missing required fields' });
+    return res.status(400).json({ message: 'Erforderliche Felder fehlen' });
   }
 
-  // Simple mock: just return a user object
+  // Mock implementation - accept any data
   const user = {
     id: Date.now(),
     firstname,
-    lastname,
+    lastname: lastname || '',
     email,
   };
 

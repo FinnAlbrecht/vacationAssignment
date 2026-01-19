@@ -8,6 +8,7 @@ import { useState } from "react";
 import Header from "../components/Header";
 import { useSession } from "../lib/hooks/session";
 import Footer from "../components/footer";
+import { NotificationProvider } from "../components/NotificationContainer";
 
 export default function App({ Component, pageProps }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -25,7 +26,8 @@ export default function App({ Component, pageProps }) {
   const { session, isSignedIn, signOut } = useSession();
   const user = session.user;
   return (
-    <div className={"main site"}>
+    <NotificationProvider>
+      <div className={"main site"}>
       <Header>
         <h1>
           <Link href="/">ToDoodle!</Link>
@@ -83,6 +85,7 @@ export default function App({ Component, pageProps }) {
       </aside>
 
       <Footer />
-    </div>
+      </div>
+    </NotificationProvider>
   );
 }

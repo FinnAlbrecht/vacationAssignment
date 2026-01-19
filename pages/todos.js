@@ -2,9 +2,11 @@ import { getAllPosts } from "../lib/api/posts";
 import { useEffect, useState } from "react";
 import styles from "./todos.module.css";
 import Link from "next/link";
+import { useNotification } from "../components/NotificationContainer";
 
 export default function IndexPage() {
   const [posts, setPosts] = useState([]);
+  const { addNotification } = useNotification();
 
   useEffect(() => {
     const loadPosts = async () => {
@@ -19,11 +21,11 @@ export default function IndexPage() {
 
         setPosts(sortedPosts);
       } catch (e) {
-        alert("Could not load posts!");
+        addNotification("Beiträge konnten nicht geladen werden", "error", 4000);
       }
     };
     loadPosts();
-  }, []);
+  }, [addNotification]);
 
   return (
     <div className={styles.posts}>
