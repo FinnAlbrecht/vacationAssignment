@@ -1,6 +1,8 @@
+import { useState, useEffect } from "react";
 import styles from "./index.module.css";
 import Link from "next/link";
 import { useNotification } from "../components/NotificationContainer";
+import { getAllPosts } from "../lib/api/posts";
 
 export default function IndexPage() {
     const [posts, setPosts] = useState([]);
