@@ -1,4 +1,4 @@
-import { createPost, updatePost } from "../lib/api/posts";
+import { createPost, updatePost } from "../lib/api/todos";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import styles from "./PostForm.module.css";
@@ -30,10 +30,24 @@ function validateModel(post) {
   if (post.time.trim().length === 0) {
     errors.time = "Time cant't be empty";
     isValid = false;
+  } else {
+    const timeRegex = /^([01]?[0-9]|2[0-3]):[0-5][0-9]$/;
+    if (!timeRegex.test(post.time)) {
+      errors.time = "Time must be in format HH:MM and between 00:00 and 23:59";
+      isValid = false;
+    }
   }
+
   if (post.date.trim().length === 0) {
     errors.date = "date cant't be empty";
     isValid = false;
+  } else {
+    // Validate date
+    const date = new Date(post.date);
+    if (isNaN(date.getTime())) {
+      errors.date = "Date must be a valid date";
+      isValid = false;
+    }
   }
 
   if (post.categorie.trim().length === 0) {
@@ -45,7 +59,6 @@ function validateModel(post) {
     errors.description = "description cant't be empty";
     isValid = false;
   }
-  
 
   return { errors, isValid };
 }
@@ -127,7 +140,6 @@ export default function PostForm({ postToEdit }) {
           {errors.time && <div className={styles.error}>{errors.time}</div>}
         </fieldset>
 
-
         <fieldset>
           <label>date:</label>
           <input name="date" onChange={handleChange} value={post.date} />
@@ -135,19 +147,29 @@ export default function PostForm({ postToEdit }) {
           {errors.date && <div className={styles.error}>{errors.date}</div>}
         </fieldset>
 
-
-
         <fieldset>
           <label>description:</label>
-          <input name="description" onChange={handleChange} value={post.description} />
+          <input
+            name="description"
+            onChange={handleChange}
+            value={post.description}
+          />
 
-          {errors.description && <div className={styles.error}>{errors.description}</div>}
+          {errors.description && (
+            <div className={styles.error}>{errors.description}</div>
+          )}
         </fieldset>
         <fieldset>
           <label>categorie:</label>
-          <input name="categorie" onChange={handleChange} value={post.categorie} />
+          <input
+            name="categorie"
+            onChange={handleChange}
+            value={post.categorie}
+          />
 
-          {errors.categorie && <div className={styles.error}>{errors.categorie}</div>}
+          {errors.categorie && (
+            <div className={styles.error}>{errors.categorie}</div>
+          )}
         </fieldset>
 
         <button disabled={isLoading}>

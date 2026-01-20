@@ -1,10 +1,7 @@
 import "./_app.css";
 import Link from "next/link";
 import { useRouter } from "next/router";
-
-import { useMode } from "../lib/hooks/modes";
 import { useState } from "react";
-
 import Header from "../components/Header";
 import { useSession } from "../lib/hooks/session";
 import Footer from "../components/footer";

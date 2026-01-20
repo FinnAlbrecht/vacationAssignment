@@ -1,4 +1,4 @@
-import { getAllPosts } from "../lib/api/posts";
+import { getAllPosts } from "../lib/api/todos";
 import { useEffect, useState } from "react";
 import styles from "./todos.module.css";
 import Link from "next/link";
