@@ -30,7 +30,14 @@ function validateModel(post) {
   if (post.time.trim().length === 0) {
     errors.time = "Time cant't be empty";
     isValid = false;
+  } else {
+    const timeRegex = /^([01]?[0-9]|2[0-3]):[0-5][0-9]$/;
+    if (!timeRegex.test(post.time)) {
+      errors.time = "Time must be in format HH:MM and between 00:00 and 23:59";
+      isValid = false;
+    }
   }
+
   if (post.date.trim().length === 0) {
     errors.date = "date cant't be empty";
     isValid = false;
