@@ -57,28 +57,66 @@ export default function App({ Component, pageProps }) {
               Todos
             </Link>
           </li>
+          {isSignedIn && (
+            <>
+              <li>
+                <Link href="/calendar" onClick={toggleSidebar}>
+                  Kalender
+                </Link>
+              </li>
+              <li>
+                <Link href="/statistics" onClick={toggleSidebar}>
+                  Statistiken
+                </Link>
+              </li>
+              <li>
+                <Link href="/reminder" onClick={toggleSidebar}>
+                  Erinnerungen
+                </Link>
+              </li>
+              <li>
+                <Link href="/profile" onClick={toggleSidebar}>
+                  Profil
+                </Link>
+              </li>
+            </>
+          )}
           <li>
-            <Link href="/reminder" onClick={toggleSidebar}>
-              Reminder
+            <Link href="/help" onClick={toggleSidebar}>
+              Hilfe
             </Link>
           </li>
-
           <li>
             <Link href="/settings" onClick={toggleSidebar}>
-              Settings
+              Einstellungen
             </Link>
           </li>
         </ul>
-        <lu>
-          <li className="Login">
-            <Link href="/login" onClick={toggleSidebar}>
-              Login
-            </Link>
-            <Link href="/" onClick={handleclicklogout}>
-              Logout
-            </Link>
-          </li>
-        </lu>
+        <ul className="auth-links">
+          {!isSignedIn ? (
+            <>
+              <li>
+                <Link href="/login" onClick={toggleSidebar}>
+                  Anmelden
+                </Link>
+              </li>
+              <li>
+                <Link href="/register" onClick={toggleSidebar}>
+                  Registrieren
+                </Link>
+              </li>
+            </>
+          ) : (
+            <li>
+              <button 
+                className="logout-btn"
+                onClick={handleclicklogout}
+              >
+                Abmelden
+              </button>
+            </li>
+          )}
+        </ul>
       </aside>
 
       <Footer />
