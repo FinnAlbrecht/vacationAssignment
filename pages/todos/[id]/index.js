@@ -1,13 +1,15 @@
-import { deletePost, getPostById } from "../../../lib/api/posts"
+import { deletePost, getPostById } from "../../../lib/api/todos"
 import Link from "next/link"
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
 import styles from "./index.module.css"
+import { useNotification } from "../../../components/NotificationContainer"
 
 export default function ToDoPage() {
     const router = useRouter()
     const { id } = router.query
     const [post, setPost] = useState(null)
+    const { addNotification } = useNotification()
 
     useEffect(() => {
         if (!id) return
@@ -26,14 +28,14 @@ export default function ToDoPage() {
 
     const handleDeleteClick = async (e) => {
         e.preventDefault()
-        if (confirm("Delete post?")) {
+        if (confirm("Post wirklich löschen?")) {
             try {
                 await deletePost(post.id)
-                alert("Post deleted!")
+                addNotification("Post gelöscht!", "success", 3000)
                 router.push("/")
             }
             catch (e) {
-                alert("Ein Fehler ist aufgetreten.")
+                addNotification("Ein Fehler ist aufgetreten", "error", 4000)
             }
         }
     }

@@ -2,10 +2,10 @@ import "./_app.css";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
-
 import Header from "../components/Header";
-import Footer from "../components/Footer";
 import { useSession } from "../lib/hooks/session";
+import Footer from "../components/Footer";
+import { NotificationProvider } from "../components/NotificationContainer";
 
 export default function App({ Component, pageProps }) {
   const router = useRouter();
@@ -16,23 +16,26 @@ export default function App({ Component, pageProps }) {
     setIsOpen((prev) => !prev);
   };
 
-  const handleLogoutClick = () => {
-    signOut();
-    router.push("/");
+  const handleclicklogout = () => {
+    if (confirm("Möchtest du dich wirklich ausloggen?")) {
+      signOut();
+      setIsOpen(false);
+      router.push("/");
+    }
   };
 
   return (
-    <div className={"main site"}>
+    <NotificationProvider>
+      <div className={"main site"}>
       <Header>
         <h1>
           <Link href="/">ToDoodle!</Link>
         </h1>
 
         {isSignedIn && (
-          <h2>
-            {" "}
-            <img src="loginicon.png" alt="" />
-          </h2>
+          <div className="user-icon">
+            <img src="loginicon.png" alt="User" />
+          </div>
         )}
         <div className="sidebar-toggle" id="Burger" onClick={toggleSidebar}>
           <img src={isOpen ? "/x-menu.png" : "/menu.jpg"} alt="menu-button" />
@@ -56,20 +59,70 @@ export default function App({ Component, pageProps }) {
               Todos
             </Link>
           </li>
-        </ul>
-        <ul>
-          <li className="Login">
-            <Link href="/login" onClick={toggleSidebar}>
-              Login
-            </Link>
-            <Link href="/" onClick={handleLogoutClick}>
-              Logout
+          {isSignedIn && (
+            <>
+              <li>
+                <Link href="/calendar" onClick={toggleSidebar}>
+                  Kalender
+                </Link>
+              </li>
+              <li>
+                <Link href="/statistics" onClick={toggleSidebar}>
+                  Statistiken
+                </Link>
+              </li>
+              <li>
+                <Link href="/reminder" onClick={toggleSidebar}>
+                  Erinnerungen
+                </Link>
+              </li>
+              <li>
+                <Link href="/profile" onClick={toggleSidebar}>
+                  Profil
+                </Link>
+              </li>
+            </>
+          )}
+          <li>
+            <Link href="/help" onClick={toggleSidebar}>
+              Hilfe
             </Link>
           </li>
+          <li>
+            <Link href="/settings" onClick={toggleSidebar}>
+              Einstellungen
+            </Link>
+          </li>
+        </ul>
+        <ul className="auth-links">
+          {!isSignedIn ? (
+            <>
+              <li>
+                <Link href="/login" onClick={toggleSidebar}>
+                  Anmelden
+                </Link>
+              </li>
+              <li>
+                <Link href="/register" onClick={toggleSidebar}>
+                  Registrieren
+                </Link>
+              </li>
+            </>
+          ) : (
+            <li>
+              <button
+                className="logout-btn"
+                onClick={handleclicklogout}
+              >
+                Abmelden
+              </button>
+            </li>
+          )}
         </ul>
       </aside>
 
       <Footer />
-    </div>
+      </div>
+    </NotificationProvider>
   );
 }

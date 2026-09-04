@@ -1,0 +1,90 @@
+[
+  {
+    "id": "1",
+    "title": "Beispiel Todo",
+    "time": "12:00",
+    "date": "2026-01-19",
+    "description": "Ein Beispiel-Todo",
+    "categorie": "Allgemein"
+  },
+  {
+    "id": "2",
+    "title": "Einkaufen gehen",
+    "time": "10:00",
+    "date": "2026-01-20",
+    "description": "Wocheneinkauf erledigen",
+    "categorie": "Haushalt"
+  },
+  {
+    "id": "3",
+    "title": "Sport treiben",
+    "time": "18:00",
+    "date": "2026-01-21",
+    "description": "Joggen im Park",
+    "categorie": "Gesundheit"
+  },
+  {
+    "id": "4",
+    "title": "Projekt abschließen",
+    "time": "14:00",
+    "date": "2026-01-22",
+    "description": "Finale Änderungen am Code",
+    "categorie": "Arbeit"
+  },
+  {
+    "id": "1768816071090",
+    "title": "asdasd gehen",
+    "time": "10:00",
+    "date": "2026-01-20",
+    "description": "Wocheneinkauf erledigen",
+    "categorie": "Haushalt"
+  },
+  {
+    "id": "1768816071094",
+    "title": "asdasdasd treiben",
+    "time": "18:00",
+    "date": "2026-01-21",
+    "description": "Joggen im Park",
+    "categorie": "Gesundheit"
+  },
+  {
+    "id": "1768816071095",
+    "title": "Projasdasdaekt adsas",
+    "time": "14:00",
+    "date": "2026-01-22",
+    "description": "Finale Änderungen am Code",
+    "categorie": "Arbeit"
+  },
+  {
+    "id": "1768816105676",
+    "title": "asdasd gehen",
+    "time": "10:00",
+    "date": "2026-01-20",
+    "description": "Wocheneinkauf erledigen",
+    "categorie": "Haushalt"
+  },
+  {
+    "id": "1768816105681",
+    "title": "asdasdasd treiben",
+    "time": "18:00",
+    "date": "2026-01-21",
+    "description": "Joggen im Park",
+    "categorie": "Gesundheit"
+  },
+  {
+    "id": "1768816105682",
+    "title": "Projasdasdaekt adsas",
+    "time": "14:00",
+    "date": "2026-01-22",
+    "description": "Finale Änderungen am Code",
+    "categorie": "Arbeit"
+  },
+  {
+    "id": "1768915184735",
+    "title": "Test",
+    "time": "22:50",
+    "date": "2000.12.12",
+    "description": "Test",
+    "categorie": "Test"
+  }
+]

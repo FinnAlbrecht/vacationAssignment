@@ -97,7 +97,7 @@ export default function LoginPage() {
                     <input type="password" name="password" onChange={handleChange} value={model.password} autoComplete="current-password" minLength={8} required />
                     {errors.password && <div className={styles.error}>{errors.password}</div>}
                 </fieldset>
-                <Link href="./register"><button>Register</button></Link>
+                <Link href="./register">Register</Link>
 
                 <fieldset>
                     <button disabled={isLoading} type="submit">
