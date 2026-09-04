@@ -40,7 +40,7 @@ function validateModel(model) {
 }
 
 export default function RegisterPage() {
-  const { session, signIn } = useSession();
+  const { signIn } = useSession();
   const router = useRouter();
 
   const [errors, setErrors] = useState(defaultModel);

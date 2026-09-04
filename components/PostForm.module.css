@@ -27,13 +27,6 @@
     padding: 0.5em;
 }
 
-.postform textarea {
-    padding: 0.3em;
-    resize: vertical;
-    min-height: 320px;
-    font: inherit;
-}
-
 .postform button {
     margin-left: 0.5em;
     

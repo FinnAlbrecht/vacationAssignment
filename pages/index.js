@@ -1,10 +1,8 @@
 import styles from "./index.module.css";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
 export default function IndexPage() {
-    const router = useRouter();
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     useEffect(() => {
@@ -23,7 +21,7 @@ export default function IndexPage() {
                             Verwalte deine Ferien <span className={styles.highlight}>mühelos</span>
                         </h1>
                         <p className={styles.heroSubtitle}>
-                            Organisiere, plane und verwalte deine Ferienaufträge an einem zentralen Ort. 
+                            Organisiere, plane und verwalte deine Ferienaufträge an einem zentralen Ort.
                             Behalte den Überblick über alle deine Aufgaben und Zeitpläne.
                         </p>
                         <div className={styles.ctaButtons}>

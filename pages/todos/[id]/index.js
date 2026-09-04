@@ -1,4 +1,4 @@
-import { deletePost, getPostById } from "../../../lib/api/posts"
+import { deletePost, getPostById } from "../../../lib/api/todos"
 import Link from "next/link"
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
@@ -19,7 +19,7 @@ export default function ToDoPage() {
                 const post = await getPostById(id)
                 setPost(post)
             } catch (e) {
-                console.log(e)
+                console.error(e)
                 if (e.status === 404) router.push("/404")
             }
         }

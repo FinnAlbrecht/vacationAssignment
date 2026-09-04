@@ -102,7 +102,7 @@ export default function PostForm({ postToEdit }) {
       try {
         await updatePost(post);
         addNotification("Post aktualisiert!", "success", 3000);
-        router.push(`/posts/${post.id}`);
+        router.push(`/todos/${post.id}`);
       } catch (e) {
         addNotification("Post konnte nicht aktualisiert werden", "error", 4000);
       }

@@ -4,14 +4,18 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import Header from "../components/Header";
 import { useSession } from "../lib/hooks/session";
-import Footer from "../components/footer";
+import Footer from "../components/Footer";
 import { NotificationProvider } from "../components/NotificationContainer";
 
 export default function App({ Component, pageProps }) {
+  const router = useRouter();
+  const { isSignedIn, signOut } = useSession();
   const [isOpen, setIsOpen] = useState(false);
+
   const toggleSidebar = () => {
     setIsOpen((prev) => !prev);
   };
+
   const handleclicklogout = () => {
     if (confirm("Möchtest du dich wirklich ausloggen?")) {
       signOut();
@@ -19,9 +23,7 @@ export default function App({ Component, pageProps }) {
       router.push("/");
     }
   };
-  const router = useRouter();
-  const { session, isSignedIn, signOut } = useSession();
-  const user = session.user;
+
   return (
     <NotificationProvider>
       <div className={"main site"}>
@@ -108,7 +110,7 @@ export default function App({ Component, pageProps }) {
             </>
           ) : (
             <li>
-              <button 
+              <button
                 className="logout-btn"
                 onClick={handleclicklogout}
               >

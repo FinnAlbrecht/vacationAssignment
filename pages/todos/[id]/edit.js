@@ -1,6 +1,6 @@
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
-import { getPostById } from "../../../lib/api/posts"
+import { getPostById } from "../../../lib/api/todos"
 import PostForm from "../../../components/PostForm"
 
 
