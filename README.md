@@ -6,86 +6,94 @@
 ![GitHub language count](https://img.shields.io/github/languages/count/FinnAlbrecht/vacationAssignment)
 ![GitHub issues](https://img.shields.io/github/issues/FinnAlbrecht/vacationAssignment)
 ![GitHub pull requests](https://img.shields.io/github/issues-pr/FinnAlbrecht/vacationAssignment)
-![GitHub license](https://img.shields.io/github/license/FinnAlbrecht/vacationAssignment)
 ![GitHub repo stars](https://img.shields.io/github/stars/FinnAlbrecht/vacationAssignment?style=social)
 ![GitHub forks](https://img.shields.io/github/forks/FinnAlbrecht/vacationAssignment?style=social)
 ![GitHub watchers](https://img.shields.io/github/watchers/FinnAlbrecht/vacationAssignment?style=social)
-![GitHub deployments](https://img.shields.io/github/deployments/FinnAlbrecht/vacationAssignment/production?label=deployment)
 
 ---
-**Project date:** October 2024  
-**Duration:** 2 weeks  
-**Goal:** Build a small web app for managing vacation requests during the apprenticeship.
+**Project date:** October 2024
+**Goal:** Build a small web app ("ToDoodle") for managing vacation/todo assignments during the apprenticeship.
 
-This README summarizes the project, the tech stack (with exact versions from `package.json`), main features, quick setup, and short troubleshooting. It reflects the current codebase in this repository.
+This README reflects the current state of the codebase in this repository: tech stack, features, project structure, setup, and known limitations.
 
 ---
 
 ## Project at a glance
 
-- Purpose: Small web app to manage vacation requests (register, login, submit requests).
-- Status: Development project. See `package.json` for dependency details and scripts.
+- **Purpose:** A todo/task manager ("ToDoodle") with login, registration and full CRUD for tasks (create, read, update, delete), built with Next.js.
+- **Status:** Development / school project. Authentication and the data store are intentionally simple mock implementations (see [Backend & data](#backend--data) below) — not production-ready.
 
 ---
 
-## Tech stack 
+## Tech stack
 
-| Package | Version (installed / declared) | Purpose |
+| Package | Version (declared in `package.json`) | Purpose |
 |---|---:|---|
-| Node.js | check your local `node -v` | runtime |
-| Next.js | 14.2.35 | React framework / routing / SSR |
-| React | 18.3.1 | UI library |
-| react-dom | 18.3.1 | DOM rendering for React |
-| jotai | 2.16.1 | state management (used in project) |
+| Node.js | 18+ recommended | runtime |
+| Next.js | ^16.1.4 (Turbopack dev server) | React framework / routing / API routes |
+| React | ^18.3.1 | UI library |
+| react-dom | ^18.3.1 | DOM rendering for React |
+| jotai | ^2.16.1 | state management (session state) |
 
 Scripts defined in `package.json`:
 
-- `dev`: `next dev -p 3001` (starts dev server on port 3001)
-- `build`: `next build` (production build)
-- `start`: `next start` (serve built app)
-- `lint`: `next lint` (linting)
+| Script | Command | Description |
+|---|---|---|
+| `npm run dev` | `next dev -p 3001` | Starts the dev server on **port 3001** |
+| `npm run build` | `next build` | Production build |
+| `npm start` | `next start` | Serve the production build |
+| `npm run lint` | `next lint` | Linting |
+| `npm run seed` | `node scripts/seed.js` | Adds sample todos to `lib/todos.json` |
 
 ---
 
-## Main description
+## Features
 
-This application provides basic user flows for creating and managing vacation requests:
-
-- Register and login flows (pages: `register.js`, `login.js`).
-- A home / index page (`index.js`) as entry point.
-- Todo/requests listing and creation pages under `pages/todos/` and `pages/todos.js`.
-- Small reusable components in `components/` including `Header.js`, `Footer` and `PostForm.js`.
-
-The app uses client-side React for interactivity and Next.js pages for routing. Backend/API calls are implemented as placeholders (see `lib/api/`), so integrate a real API or adapt the stubs when needed.
+- **Auth flows:** register (`/register`) and login (`/login`) pages backed by mock API routes under `pages/api/`.
+- **Todos:** list (`/todos`), detail (`/todos/[id]`), create (`/todos/create`) and edit (`/todos/[id]/edit`) — full CRUD against a small file-backed JSON store.
+- **Notifications:** toast-style success/error notifications (`components/Notification*`, `NotificationContainer`) instead of native browser alerts.
+- **Landing page:** marketing-style homepage (`/`) with hero, feature grid and call-to-action sections.
+- **Responsive layout:** collapsible sidebar navigation, CSS Modules per page/component.
+- **Placeholder pages:** a number of routes (`/about`, `/blog`, `/calendar`, `/community`, `/contact`, `/features`, `/help`, `/helpcenter`, `/impressum`, `/pricing`, `/privacy`, `/profile`, `/reminder`, `/roadmap`, `/settings`, `/statistics`, `/support`, `/terms`, `/tutorials`) exist as simple "coming soon" pages (see `pages/coming-soon.module.css`) — they render but have no functionality yet.
 
 ---
 
-## Features (primary)
+## Backend & data
 
-- User registration and login pages
-- Vacation/todo request listing and creation
-- Form validation and basic UI feedback (implemented in `PostForm.js` / page forms)
-- Responsive layout via CSS modules (`*.module.css` files in pages/components)
+There is no external/real backend. Everything runs inside the Next.js app itself:
+
+- **Auth (`pages/api/login.js`, `pages/api/register.js`):** mock implementation — it accepts **any** email/password and always returns a fake user + `mock-token`. There is no password check and no real user database.
+- **Todos (`pages/api/todos/`, `lib/todos.js`):** a tiny file-backed store that reads/writes `lib/todos.json` directly on disk. This works for local development but **is not suitable for production** (no concurrency handling, resets are manual, and it won't work on read-only/serverless deployments).
+- **Session (`lib/hooks/session.js`):** the logged-in user/token is kept in `localStorage` via `jotai`, no cookies/server sessions.
+
+This means the app is fully usable end-to-end locally (register → login → create/edit/delete todos) without needing any external service.
 
 ---
 
 ## Quick setup (run locally)
 
-1. Change to the project directory and install dependencies:
+1. Install dependencies:
 
 ```bash
-cd vacationAssignment
 npm install
 ```
 
-2. Start development server (default port 3001):
+2. Environment variable: a `.env.local` with `NEXT_PUBLIC_API_URL` is required — `lib/api/auth.js` throws on startup if it's missing. The file is already committed with a placeholder value; the actual value doesn't matter for local development since auth/todos are served internally through `/api/*` (see [Backend & data](#backend--data)). Adjust it only if you want the `/todos/:path*` rewrite fallback in `next.config.mjs` to point somewhere real.
+
+3. (Optional) seed a few sample todos into `lib/todos.json`:
+
+```bash
+npm run seed
+```
+
+4. Start the development server (port 3001):
 
 ```bash
 npm run dev
 # open http://localhost:3001
 ```
 
-3. Production build and start (for local verification):
+5. Production build and start (for local verification):
 
 ```bash
 npm run build
@@ -94,24 +102,38 @@ npm start
 
 ---
 
-## Short troubleshooting (key items)
+## Project structure (quick reference)
 
-- Case-sensitive imports:
-	- Problem: `Module not found: Can't resolve '../components/header'` on Linux/macOS.
-	- Fix: Use the exact filename case. Example: `import Header from "../components/Header";` (this repo contains `Header.js`).
+```
+pages/
+  index.js              Landing page
+  login.js, register.js Auth pages
+  todos.js               Todo list
+  todos/create.js         Create todo
+  todos/[id]/index.js     Todo detail (edit/delete)
+  todos/[id]/edit.js       Edit todo
+  api/login.js, api/register.js   Mock auth API routes
+  api/todos/                        Todo CRUD API routes
+  about.js, blog.js, ...             "Coming soon" placeholder pages
 
-- Port conflicts:
-	- Start on another port: `PORT=3002 npm run dev`.
+components/
+  Header.js, Footer.js         Layout
+  PostForm.js                   Create/edit todo form
+  Notification*, NotificationContainer   Toast notifications
 
-- After dependency updates, if `npm run build` fails, revert or test updates in a separate branch.
+lib/
+  api/auth.js, api/todos.js     Client-side fetch wrappers
+  hooks/session.js               Auth/session state (jotai + localStorage)
+  todos.js, todos.json             File-backed todo store used by the API routes
+```
 
 ---
 
-## Where to look in the code (quick references)
+## Troubleshooting
 
-- Pages: `pages/index.js`, `pages/login.js`, `pages/register.js`, `pages/todos.js`, `pages/todos/` folder.
-- Components: `components/Header.js`, `components/footer.js`, `components/PostForm.js`.
-- Hooks / API stubs: `lib/hooks/`, `lib/api/`.
+- **`Environment variable NEXT_PUBLIC_API_URL is not set`** on startup: create/restore `.env.local` in the project root with `NEXT_PUBLIC_API_URL=<any value>` and restart the dev server.
+- **Port already in use:** the dev server always runs on port 3001 (`next dev -p 3001`); stop whatever else is using that port, or temporarily change the port in the `dev` script in `package.json`.
+- **`npm run build` fails after a dependency update:** test dependency upgrades on a separate branch before merging (see below).
 
 ---
 
@@ -120,17 +142,16 @@ npm start
 Show outdated packages:
 
 ```bash
-cd vacationAssignment
 npm outdated --depth=0
 ```
 
-Update minor/patch safely:
+Update minor/patch versions safely:
 
 ```bash
 npm update
 ```
 
-For major upgrades (e.g. Next 14 → Next 16, React 18 → 19) use a branch and test thoroughly:
+For major upgrades, use a branch and test thoroughly:
 
 ```bash
 git checkout -b upgrade/deps
@@ -141,22 +162,13 @@ npm run build
 
 ---
 
-## Screenshot placeholders
-
-Add screenshots under `docs/screenshots/` and reference them like:
-
-```markdown
-![Homepage](./docs/screenshots/homepage.png)
-![Login](./docs/screenshots/login.png)
-```
-
 ## 💬 Lessons Learned
-- Improved my understanding of React components.
-- Learned how to handle form validation in Next.js.
-- Practiced using Git submodules correctly.
+
+- Building auth and CRUD flows around React state (`jotai`) and Next.js routing.
+- Implementing a minimal REST-style API with Next.js API routes and a file-backed JSON store.
+- Practicing form validation and user feedback (notifications) in a real app.
+- Resolving merge conflicts after parallel feature branches touched the same core files (auth, layout, forms).
 
 ## 🔗 Related Links
 
-- [Main Repository Overview](https://github.com/FinnAlbrecht/bbc-apprenticeship/tree/main)
 - [GitHub Repository](https://github.com/FinnAlbrecht/vacationAssignment)
----
