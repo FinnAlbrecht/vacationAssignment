@@ -36,10 +36,3 @@
 .login input {
     padding: 0.5em;
 }
-
-.login textarea {
-    padding: 0.5em;
-    resize: vertical;
-    min-height: 320px;
-    font: inherit;
-}

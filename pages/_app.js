@@ -1,25 +1,26 @@
 import "./_app.css";
 import Link from "next/link";
-
-import { useMode } from "../lib/hooks/modes";
+import { useRouter } from "next/router";
 import { useState } from "react";
 
-import Header from "../components/header";
-import { useSession } from "../lib/hooks/session";
+import Header from "../components/Header";
 import Footer from "../components/Footer";
+import { useSession } from "../lib/hooks/session";
 
 export default function App({ Component, pageProps }) {
+  const router = useRouter();
+  const { isSignedIn, signOut } = useSession();
   const [isOpen, setIsOpen] = useState(false);
+
   const toggleSidebar = () => {
     setIsOpen((prev) => !prev);
   };
-  const handleclicklogout = () => {
+
+  const handleLogoutClick = () => {
     signOut();
     router.push("/");
   };
 
-  const { session, isSignedIn, signOut } = useSession([]);
-  const user = session.user;
   return (
     <div className={"main site"}>
       <Header>
@@ -55,28 +56,17 @@ export default function App({ Component, pageProps }) {
               Todos
             </Link>
           </li>
-          <li>
-            <Link href="/reminder" onClick={toggleSidebar}>
-              Reminder
-            </Link>
-          </li>
-
-          <li>
-            <Link href="/settings" onClick={toggleSidebar}>
-              Settings
-            </Link>
-          </li>
         </ul>
-        <lu>
+        <ul>
           <li className="Login">
             <Link href="/login" onClick={toggleSidebar}>
               Login
             </Link>
-            <Link href="/" onClick={handleclicklogout}>
+            <Link href="/" onClick={handleLogoutClick}>
               Logout
             </Link>
           </li>
-        </lu>
+        </ul>
       </aside>
 
       <Footer />

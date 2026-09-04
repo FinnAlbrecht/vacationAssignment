@@ -1,4 +1,4 @@
-import { checkoutPay, login, register } from "../lib/api/auth";
+import { register } from "../lib/api/auth";
 import { useSession } from "../lib/hooks/session";
 import { useRouter } from "next/router";
 import { useState } from "react";
@@ -6,6 +6,8 @@ import styles from "./login.module.css";
 import Link from "next/link";
 
 const defaultModel = {
+  firstname: "",
+  lastname: "",
   email: "",
   password: "",
 };
@@ -32,7 +34,7 @@ function validateModel(model) {
 }
 
 export default function RegisterPage() {
-  const { session, signIn } = useSession();
+  const { signIn } = useSession();
   const router = useRouter();
 
   const [errors, setErrors] = useState(defaultModel);
@@ -64,7 +66,7 @@ export default function RegisterPage() {
 
     try {
       const resp = await register(model);
-      login(resp);
+      signIn(resp);
       const url = router.query.url;
       if (url) {
         router.push(url);
@@ -74,7 +76,7 @@ export default function RegisterPage() {
     } catch (e) {
       setErrors({
         ...errors,
-        register: "Login failed",
+        register: "Registration failed",
       });
       setIsLoading(false);
     }
@@ -90,11 +92,11 @@ export default function RegisterPage() {
         <fieldset>
           <label>Firstname:</label>
           <input
-            type="Firstname"
-            name="Firstname"
+            type="text"
+            name="firstname"
             onChange={handleChange}
             value={model.firstname}
-            autoComplete="Firstname"
+            autoComplete="given-name"
             required
           />
           {errors.firstname && (
@@ -105,11 +107,11 @@ export default function RegisterPage() {
         <fieldset>
           <label>Lastname:</label>
           <input
-            type="Lastname"
+            type="text"
             name="lastname"
             onChange={handleChange}
             value={model.lastname ?? ""}
-            autoComplete="lastname"
+            autoComplete="family-name"
           />
           {errors.lastname && (
             <div className={styles.error}>{errors.lastname}</div>

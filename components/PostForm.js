@@ -95,6 +95,7 @@ export default function PostForm({ postToEdit }) {
       try {
         const newPost = await createPost(post);
         alert("Post created!");
+        router.push(`/todos/${newPost.id}`);
       } catch (e) {
         alert("Could not create post");
       }

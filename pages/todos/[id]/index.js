@@ -17,7 +17,7 @@ export default function ToDoPage() {
                 const post = await getPostById(id)
                 setPost(post)
             } catch (e) {
-                console.log(e)
+                console.error(e)
                 if (e.status === 404) router.push("/404")
             }
         }

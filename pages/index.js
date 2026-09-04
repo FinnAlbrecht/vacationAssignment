@@ -1,32 +1,8 @@
-import { getAllPosts } from "../lib/api/posts";
-import { useEffect, useState } from "react";
+import { useSortedPosts } from "../lib/hooks/posts";
 import styles from "./index.module.css";
-import Link from "next/link";
 
 export default function IndexPage() {
-    const [posts, setPosts] = useState([]);
-
-    useEffect(() => {
-        const loadPosts = async () => {
-            try {
-                const posts = await getAllPosts();
-                
-                // Sortiere die Beiträge nach Datum und Uhrzeit
-                const sortedPosts = posts.sort((a, b) => {
-                    // Kombiniere Datum und Uhrzeit in einem Format, das sortiert werden kann
-                    const dateA = new Date(`${a.date} ${a.time}`);
-                    const dateB = new Date(`${b.date} ${b.time}`);
-                    return dateA - dateB;
-                });
-
-             
-                setPosts(sortedPosts);
-            } catch (e) {
-                alert("Could not load posts!");
-            }
-        };
-        loadPosts();
-    }, []);
+    const posts = useSortedPosts();
 
     return (
         <div className={styles.todos}>
